@@ -8,12 +8,14 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {StudentsService} from './services/students.service';
 import {FormsModule} from '@angular/forms';
+import { AddStudentComponent } from './components/add-student/add-student.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentsComponent
+    StudentsComponent,
+    AddStudentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,63 +1,25 @@
-<div class="form-wrapper">
-  <form name="form" (ngSubmit)="f.form.valid && addStudent(student)" #f="ngForm" novalidate>
-    <div class="form-group">
-      <input type="text"
-             name="name"
-             class="form-control mb-1"
-             #studentName="ngModel"
-             required
-             minlength="4"
-             placeholder="Name"
-             [(ngModel)]="student.name"/>
-      <div *ngIf="studentName.invalid && (studentName.dirty || studentName.touched)"
-           class="alert alert-danger">
-        <div *ngIf="studentName?.errors?.required">
-          Name is required.
-        </div>
-        <div *ngIf="studentName?.errors?.minlength">
-          Name must be at least 4 characters long.
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <input type="text"
-             name="passportNumber"
-             class="form-control mb-1"
-             #passportNumber="ngModel"
-             required
-             minlength="4"
-             placeholder="Passport Number"
-             [(ngModel)]="student.passportNumber"/>
-      <div *ngIf="passportNumber.invalid && (passportNumber.dirty || passportNumber.touched)"
-           class="alert alert-danger">
-        <div *ngIf="passportNumber?.errors?.required">
-          Passport number is required.
-        </div>
-        <div *ngIf="passportNumber?.errors?.minlength">
-          Passport number must be at least 4 characters long.
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <button class="btn btn-primary">Add Student</button>
-    </div>
-  </form>
+<div *ngIf="error">Backend is offline</div>
+<div *ngIf="!error" class="form-wrapper">
+  <app-add-student></app-add-student>
   <div class="container">
-    <table *ngIf="students?.length > 0" class="table table-striped">
+    <table *ngIf="students?.length > 0" class="table table-striped table-hover table-bordered">
       <thead>
       <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Passport number</th>
-        <th>Delete</th>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Passport number</th>
+        <th scope="col">Action</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let stud of students">
-        <td>{{stud.id}}</td>
+        <th scope="row">{{stud.id}}</th>
         <td>{{stud.name}}</td>
         <td>{{stud.passportNumber}}</td>
-        <td><button (click)="deleteStudent(stud)" class="btn btn-danger">Delete</button></td>
+        <td>
+          <button (click)="deleteStudent(stud)" class="btn btn-secondary ">Edit</button>
+          <button (click)="deleteStudent(stud)" class="btn btn-danger ">Delete</button>
+        </td>
 
       </tr>
       </tbody>

@@ -13,13 +13,21 @@ export class StudentsComponent implements OnInit {
     name: '',
     id: null
   };
-  students: Student[] = [];
+  students: Student[];
+
+  editMode = false;
+
+  error = false;
 
   constructor(private studentsService: StudentsService) {
+
   }
 
   ngOnInit() {
-    this.mapStudents();
+    this.fetchStudents();
+    this.studentsService.students$.subscribe(students => this.students = students);
+
+    // n
   }
 
   // mapStudent(name: string) {
@@ -28,25 +36,20 @@ export class StudentsComponent implements OnInit {
   //   });
   // }
 
-  mapStudents() {
+  fetchStudents() {
     this.studentsService.getStudents().subscribe((allStudents: Student[]) => {
       this.students = allStudents;
+      this.studentsService.changeStudents(this.students);
     }, err => {
-      console.log(err.toLocaleString());
+      this.error = true;
     });
   }
 
-  addStudent(student: Student) {
-    this.studentsService.addStudent(student).subscribe((addedStudent: Student) => {
-      this.students.push(addedStudent);
-    }, err => {
-      console.log(err.toLocaleString());
-    });
-  }
 
   deleteStudent(student: Student) {
     this.studentsService.deleteStudent(student.id).subscribe(() => {
       this.students = this.students.filter(item => item !== student);
+      this.studentsService.changeStudents(this.students);
     }, err => console.log(err.toLocaleString()));
   }
 
