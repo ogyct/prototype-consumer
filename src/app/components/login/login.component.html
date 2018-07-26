@@ -1,0 +1,21 @@
+<p>Non-admin username and password: john.doe and 1990</p>
+<p>Admin user: admin.admin and 1990</p>
+
+<div class="form-wrapper">
+  <form name="form" (ngSubmit)="loginForm.form.valid && login()" #loginForm="ngForm" novalidate>
+    <div class="form-group" [ngClass]="{ 'has-error': loginForm.submitted && !username.valid }">
+      <input type="text" class="form-control" name="username" [(ngModel)]="credentials.userName" #username="ngModel"
+             required placeholder="Username"/>
+      <div *ngIf="loginForm.submitted && !username.valid" class="help-block">Username is required</div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error': loginForm.submitted && !password.valid }">
+      <input type="password" class="form-control" name="password" [(ngModel)]="credentials.password" #password="ngModel"
+             required placeholder="Password"/>
+      <div *ngIf="loginForm.submitted && !password.valid" class="help-block">Password is required</div>
+    </div>
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">Sign In</button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  </form>
+</div>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StudentsService} from '../../services/students.service';
 import {Student} from '../../models/Student';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-students',
@@ -8,19 +9,13 @@ import {Student} from '../../models/Student';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  student: Student = {
-    passportNumber: '',
-    name: '',
-    id: null
-  };
   students: Student[];
 
-  editMode = false;
 
   error = false;
 
-  constructor(private studentsService: StudentsService) {
-
+  constructor(private studentsService: StudentsService, private authService: AuthenticationService) {
+    this.authService.login('admin.admin', '1990');
   }
 
   ngOnInit() {
@@ -40,7 +35,7 @@ export class StudentsComponent implements OnInit {
     this.studentsService.getStudents().subscribe((allStudents: Student[]) => {
       this.students = allStudents;
       this.studentsService.changeStudents(this.students);
-    }, err => {
+    }, () => {
       this.error = true;
     });
   }

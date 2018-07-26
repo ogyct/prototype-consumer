@@ -8,14 +8,19 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {StudentsService} from './services/students.service';
 import {FormsModule} from '@angular/forms';
-import { AddStudentComponent } from './components/add-student/add-student.component';
+import {AddStudentComponent} from './components/add-student/add-student.component';
+import {AuthenticationService} from './services/authentication.service';
+import {LoginComponent} from './components/login/login.component';
+import {UserService} from './services/user.service';
+import {AuthGuardService} from './guards/auth-guard.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentsComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +28,7 @@ import { AddStudentComponent } from './components/add-student/add-student.compon
     HttpClientModule,
     FormsModule
   ],
-  providers: [StudentsService],
+  providers: [StudentsService, AuthenticationService, UserService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

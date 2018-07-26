@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8081'
+  url: 'http://localhost:8081',
+  TOKEN_AUTH_USERNAME: 'client',
+  TOKEN_AUTH_PASSWORD: 'secret'
 };
